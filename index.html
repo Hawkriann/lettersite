@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy birthdayy🤗</title>
+    <!-- MANGGUL CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+<!-- 1. ANIMASI PEMBUKA (WELCOME OVERLAY) -->
+<div id="welcome-overlay">
+    <div class="welcome-text">Preparing somethingg....😏😏</div>
+    <!-- TAMBAHKAN GAMBAR DI SINI -->
+    <img src="assets/wmelet.jpg" alt="Windah" class="welcome-img">
+</div>
+<!-- 2. ANIMASI TRANSISI BUNGA MEKAR -->
+<div id="flower-burst-overlay"></div>
+    <div class="main-container">
+      <div class="particle" style="left: 10%; animation-delay: 0s"></div>
+      <div class="particle" style="left: 30%; animation-delay: 2s"></div>
+      <div class="particle" style="left: 50%; animation-delay: 4s"></div>
+      <div class="particle" style="left: 70%; animation-delay: 6s"></div>
+      <div class="particle" style="left: 90%; animation-delay: 8s"></div>
+
+      <!-- LAYAR 1: PIN -->
+<div id="pin-screen">
+  <div class="pin-box">
+    <div class="pin-title">To jejepp <3</div>
+    <div class="pin-subtitle">Lets guess the codee mwehehhe</div>
+    
+    <!-- BOX STATUS KUNCI / COUNTDOWN JAM 00.00 -->
+    <div id="lock-status-box" class="lock-status-box">
+      <span class="lock-icon">🔒</span>
+      <p id="lock-text">PIN masih terkunci!</p>
+      <div id="countdown-timer">00:00:00</div>
+    </div>
+
+    <div class="pin-display" id="pin-display"></div>
+    
+    <!-- CONTAINER TOMBOL PIN (DI-LOCK PAKAI JS SEBELUM 00.00) -->
+    <div class="pin-grid disabled-grid" id="pin-grid">
+      <button class="pin-btn" onclick="press('1')">1</button>
+      <button class="pin-btn" onclick="press('2')">2</button>
+      <button class="pin-btn" onclick="press('3')">3</button>
+      <button class="pin-btn" onclick="press('4')">4</button>
+      <button class="pin-btn" onclick="press('5')">5</button>
+      <button class="pin-btn" onclick="press('6')">6</button>
+      <button class="pin-btn" onclick="press('7')">7</button>
+      <button class="pin-btn" onclick="press('8')">8</button>
+      <button class="pin-btn" onclick="press('9')">9</button>
+      <button class="pin-btn reset" onclick="resetPin()">✕</button>
+      <button class="pin-btn" onclick="press('0')">0</button>
+      <button class="pin-btn enter" onclick="checkPin()">✓</button>
+    </div>
+
+    <!-- Teks Error / Clue -->
+    <div id="pin-error"></div>
+
+    <!-- GAMBAR CLUE -->
+    <div id="clue-img-container" style="display: none; text-align: center; margin-top: 10px;">
+      <img src="assets/wmikir.png" id="clue-img" style="max-width: 160px; height: auto; border-radius: 8px;">
+    </div>
+
+    <!-- Tombol Clue Pas 3x Salah -->
+    <div id="clue-container" style="display: none; margin-top: 10px;">
+      <button class="clue-btn yes-btn" onclick="showClue()">Yes</button>
+      <button class="clue-btn no-btn" onclick="hideClueOptions()">No</button>
+    </div>
+
+    <!-- COUNTDOWN ULTAH DI BAWAH PIN -->
+    <div class="countdown-container">
+      <div class="countdown-title">COUNTDOWN TO YOUR BIRTHDAY🤭</div>
+      <div class="countdown-box">
+        <div class="time-card"><span id="cd-days">00</span><p>Hari</p></div>
+        <div class="time-card"><span id="cd-hours">00</span><p>Jam</p></div>
+        <div class="time-card"><span id="cd-minutes">00</span><p>Menit</p></div>
+        <div class="time-card"><span id="cd-seconds">00</span><p>Detik</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- SISIPIN KODE INI DI ATAS <div id="content-screen"> -->
+      <div id="gift-screen">
+        <p style="font-size: 0.9em; color: #f78fb3; margin-bottom: 15px">
+          TEKANN DLUU
+        </p>
+        <div
+          id="gift-box"
+          style="
+            font-size: 5rem;
+            cursor: pointer;
+            animation: bounce 1.5s infinite;
+          "
+        >
+          🎁
+        </div>
+        <p style="font-size: 0.8em; color: #888; margin-top: 15px">
+          <img src="assets/wmelet1.jpg" alt="" width="150" height="150">
+        </p>
+      </div>
+
+      <!-- LAYAR 2: UCAPAN -->
+      <div id="content-screen">
+        <!-- TAMBAH BARIS INI (WADAH HUJAN BUNGA) -->
+    <div id="petals-bg-container"></div>
+    <!-- 1. Header Judul -->
+    <div class="special-day-text">✦ YOUR SPECIAL DAY ✦</div>
+    <h1 class="main-title">Happy Birthday<br><span class="name-text">Jepp💫💫</span></h1>
+    <div class="date-text">10th September • THE MOST SPECIAL DAY</div>
+
+    <!-- 2. Kue -->
+    <div class="cake-wrapper">
+        <div class="tooltip">Tiupp lilin dlu 😋</div>
+        <div class="cake-3d" id="cake-container">
+            <div class="candle candle-1"><div class="flame" id="flame1"></div></div>
+            <div class="candle candle-2"><div class="flame" id="flame2"></div></div>
+            <div class="layer layer-top"></div>
+            <div class="layer layer-middle"></div>
+            <div class="plate"></div>
+        </div>
+    </div>
+
+    <!-- 3. Ucapan Singkat di Bawah Kue -->
+    <p class="sub-message" id="sub-message">
+        Goodluckk with urr study abroadd<br>
+        Wishh youu all the bestt pokonyaa🥳🥳
+    </p>
+
+    <!-- SECTION KALENDER SCRAPBOOK -->
+<div class="scrapbook-container reveal">
+    <h2 class="scrapbook-title">It's urr day </h2>
+    
+    <div class="calendar-card">
+        <div class="calendar-header">
+            <span class="year-badge">2026</span>
+            <span class="month-title">SEPTEMBER</span>
+        </div>
+        
+        <div class="calendar-grid">
+            <!-- Hari -->
+            <div class="day-name">SUN</div>
+            <div class="day-name">MON</div>
+            <div class="day-name">TUE</div>
+            <div class="day-name">WED</div>
+            <div class="day-name">THU</div>
+            <div class="day-name">FRI</div>
+            <div class="day-name">SAT</div>
+            
+            <!-- Tanggal (Kosongkan offset awal kalau bukan hari Minggu) -->
+            <div></div><div></div> <!-- Offset misal September 2026 mulai Selasa -->
+            <div class="date-num">1</div>
+            <div class="date-num">2</div>
+            <div class="date-num">3</div>
+            <div class="date-num">4</div>
+            <div class="date-num">5</div>
+            <div class="date-num">6</div>
+            <div class="date-num">7</div>
+            <div class="date-num">8</div>
+            <div class="date-num">9</div>
+            <!-- TANGGAL ULTAH JEPP (DILINGKARI MERAH) -->
+            <div class="date-num marked">10</div> 
+            <div class="date-num">11</div>
+            <div class="date-num">12</div>
+            <div class="date-num">13</div>
+            <div class="date-num">14</div>
+            <div class="date-num">15</div>
+            <div class="date-num">16</div>
+            <div class="date-num">17</div>
+            <div class="date-num">18</div>
+            <div class="date-num">19</div>
+            <div class="date-num">20</div>
+            <div class="date-num">21</div>
+            <div class="date-num">22</div>
+            <div class="date-num">23</div>
+            <div class="date-num">24</div>
+            <div class="date-num">25</div>
+            <div class="date-num">26</div>
+            <div class="date-num">27</div>
+            <div class="date-num">28</div>
+            <div class="date-num">29</div>
+            <div class="date-num">30</div>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Surat Panjang Pas Di-scroll -->
+<div class="letter-section memory-section">
+    <div class="letter-header">— A LETTER FOR YOU —</div>
+    
+    <!-- WADAH SURAT LIPAT -->
+    <div class="letter-card-wrapper" onclick="toggleLetter()">
+        
+        <!-- COVER DEPAN (PAS MASIH NUTUP) -->
+        <div class="letter-cover">
+            <div class="cover-content">
+                <span class="envelope-icon">✉️</span>
+                <h3>A Special Letter For You</h3>
+                <p class="tap-hint">Tap to open 😝</p>
+            </div>
+        </div>
+ 
+        <!-- ISI SURAT (PAS DIBUKA) -->
+        <div class="letter-body">
+            <div class="letter-date">10 SEPTEMBER</div>
+            <h2>🌻🌻 A little word for uu 🌻🌻</h2>
+            <p>"<strong>Happy 18th birthday mpruyyy.</strong> I hope this new age brings you lots of happiness and this month you're going to Malaysia to study abroad.. I hope youu have a good experience and can achive all ur wishess as soon as possible, maybe you wanna work at company like tencent or something similar mwhehehehe. Oyeahh, I also hope that the people around you will always be kind to you, so you won't feel too stressed."</p>
+            <p>Then, don't pressure yourself too much, if you get tired just take a rest don't push yourself too hard since you always put so much effort when doing something, and make sure you get enough rest because urr body needs that to stay healthy. And don't forget to drink water😛</p>
+            <p>"Lastly, i want to say thankyouu and i'm so grateful to know you because youu alwayss help me with your ielts note, its really helpful for me cause i can learn something new and take the idea mwehehehe <33. Also, as you know, you really motivate me"</p>
+            <p>Thankyouu nyakk uda sebaikkk itu, proudd of youu 💗💗</p> 
+            
+            <div class="windah-side-wrapper">
+                <h2 class="hepi-text">HEPIIBESDEYY</h2>
+                <img src="assets/windah.jpg" alt="Windah" class="windah-img-side">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <!-- PEMUTAR LAG    
+<!-- MINI SPOTIFY PLAYER -->
+<!-- MINI SPOTIFY PLAYER -->
+<div class="spotify-card memory-section">
+    <div class="spotify-header">
+        <span class="spotify-icon">🎵</span> 
+        <span class="spotify-label">Song</span>
+    </div>
+    
+    <div class="spotify-body">
+        <img id="song-cover" src="cover1.jpg" alt="Album Cover" class="album-cover">
+        <div class="song-info">
+            <div id="song-title" class="song-title">Judul Lagu 1</div>
+            <div id="song-artist" class="song-artist">Nama Penyanyi</div>
+        </div>
+    </div>
+
+    <div class="spotify-controls">
+        <button onclick="prevSong()" class="spot-btn">⏮</button>
+        <button id="music-btn" onclick="toggleMusic()" class="spot-btn play-btn">▶</button>
+        <button onclick="nextSong()" class="spot-btn">⏭</button>
+    </div>
+
+    <!-- DAFTAR LIST LAGU AKAN MUNCUL DI SINI -->
+    <div id="playlist-list" class="playlist-list"></div>
+
+    <audio id="bg-music" loop></audio>
+</div>
+
+<!-- SECTION DENGAN JUDUL UTAMA -->
+<div class="memory-section reveal">
+    <!-- JUDUL UTAMA SECTION -->
+    <h2 class="memory-title">Album</h2>
+
+    <!-- CONTAINER POLAROID BERAMPINGAN -->
+    <div class="polaroid-wrapper">
+        
+        <!-- Polaroid 1 (Roblox) -->
+        <div class="polaroid-card rotate-left">
+            <div class="polaroid-tag tag-game">Game Moment</div>
+            <div class="polaroid-img-box">
+                <img src="assets/2.jpg" alt="."> 
+            </div>
+            <div class="polaroid-caption">
+                <span>🤏</span>
+            </div>
+        </div>
+
+        <!-- Polaroid 2 (Roblox) -->
+        <div class="polaroid-card rotate-right">
+            <div class="polaroid-tag tag-game">Game Moment</div>
+            <div class="polaroid-img-box">
+                <img src="assets/22.jpeg" alt="roblox"> 
+            </div>
+            <div class="polaroid-caption">
+                <span>mwehehehee</span>
+            </div>
+        </div>
+
+        <!-- Polaroid 3 (Video) -->
+        <div class="polaroid-card rotate-left">
+            <div class="polaroid-tag tag-video">Memory Video</div>
+            <div class="polaroid-img-box">
+                <img src="assets/pubg12.jpg" alt="">
+            </div>
+            <div class="polaroid-caption">
+                <span>😋😋</span>
+            </div>
+        </div>
+
+        <!-- Polaroid 4 (Real Life / Game) -->
+        <div class="polaroid-card rotate-right">
+            <div class="polaroid-tag tag-real">Real Life</div>
+            <div class="polaroid-img-box">
+                <img src="assets/Screenshot (647).png" alt="roblox"> 
+            </div>
+            <div class="polaroid-caption">
+                <span>best ava🐥</span>
+            </div>
+        </div>
+
+        <!-- Polaroid 3 (Video) -->
+        <div class="polaroid-card rotate-left">
+            <div class="polaroid-tag tag-video">Memory Video</div>
+            <div class="polaroid-img-box">
+                <img src="assets/Screenshot (791) (1).png" alt="">
+            </div>
+            <div class="polaroid-caption">
+                <span>muncak :v</span>
+            </div>
+        </div>
+
+        <!-- Polaroid 4 (Real Life / Game) -->
+        <div class="polaroid-card rotate-right">
+            <div class="polaroid-tag tag-real">Real Life</div>
+            <div class="polaroid-img-box">
+                <img src="assets/Screenshot (667).png" alt="roblox"> 
+            </div>
+            <div class="polaroid-caption">
+                <span>👻👻</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<img src="assets/eaa.jpg" alt="" width="100" height="100"
+<p>ngide x yg buat😇</p>
+<img src="assets/images (2).jpg" alt="" width="110" height="110">
+
+</div>
+
+</div>
+
+    <!-- INPUT JAVASCRIPT -->
+    <script src="script.js"></script>
+    <div id="emoji-burst-container"></div>
+  </body>
+</html>
+
+
+<!-- buat game photos and rl photos -->

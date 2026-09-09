@@ -1,0 +1,1398 @@
+/* --- RESET & BASIC SETUP --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #1e0921; /* Background warna gelap estetik */
+  color: #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- PARTIKEL BUNGA / BINTANG --- */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+/* --- LAYAR 1: PIN SCREEN --- */
+#pin-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 100;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+#pin-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pin-title {
+  font-size: 1.2rem;
+  color: #f78fb3;
+  margin-bottom: 5px;
+}
+.pin-subtitle {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.pin-display {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #f78fb3;
+}
+
+.pin-dot.filled {
+  background: #f78fb3;
+}
+
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+.pin-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 143, 179, 0.3);
+  background: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pin-btn:active {
+  background: rgba(247, 143, 179, 0.3);
+}
+
+#pin-error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 15px;
+  min-height: 20px;
+}
+
+/* --- LAYAR 2: KADO (GIFT SCREEN) --- */
+#gift-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+  z-index: 90;
+  width: 100%;
+}
+
+#gift-screen.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#gift-box {
+  font-size: 5rem;
+  cursor: pointer;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* --- LAYAR 3: CONTENT SCREEN (Ucapam & Surat Scroll) --- */
+#content-screen {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 50px 20px 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+#content-screen.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.special-day-text {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #f78fb3;
+  margin-bottom: 5px;
+}
+.main-title {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  margin-bottom: 5px;
+}
+.name-text {
+  color: #f78fb3;
+}
+.date-text {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 25px;
+}
+
+/* KUE 3D CSS */
+.cake-wrapper {
+  position: relative;
+  margin: 20px 0 30px 0;
+}
+
+.tooltip {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 5px 14px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.cake-3d {
+  position: relative;
+  width: 180px;
+  height: 110px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px 10px 4px 4px;
+}
+
+.layer-top {
+  top: 25px;
+  width: 100px;
+  height: 35px;
+  background: #ffb7c5;
+  border-top: 5px solid #fff;
+}
+.layer-middle {
+  top: 60px;
+  width: 140px;
+  height: 40px;
+  background: #ffb7c5;
+  border-top: 5px solid #fff;
+}
+.plate {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.candle {
+  position: absolute;
+  width: 8px;
+  height: 22px;
+  background: #fff;
+  border-radius: 3px;
+  z-index: 5;
+}
+.candle-1 {
+  top: 4px;
+  left: 65px;
+}
+.candle-2 {
+  top: 4px;
+  right: 65px;
+}
+
+.flame {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 14px;
+  background: #ffaa00;
+  border-radius: 50% 50% 20% 20%;
+  box-shadow:
+    0 0 10px #ffaa00,
+    0 0 18px #ff0000;
+  animation: flicker 0.2s infinite alternate;
+}
+
+.flame.off {
+  opacity: 0 !important;
+  box-shadow: none !important;
+}
+
+@keyframes flicker {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    transform: translateX(-48%) scale(1.15);
+  }
+}
+
+.sub-message {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 40px;
+}
+
+/* KERTAS SURAT (A LETTER FOR YOU) */
+.letter-section {
+  width: 100%;
+  max-width: 420px;
+  margin-top: 20px;
+}
+
+.letter-header {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  color: #f78fb3;
+  margin-bottom: 15px;
+}
+
+.letter-card {
+  background: #ffffff;
+  color: #2c2c2c;
+  padding: 30px 22px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-family: "Georgia", serif;
+  line-height: 1.8;
+}
+
+.letter-date {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #888;
+  margin-bottom: 15px;
+}
+.letter-card h2 {
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.letter-card p {
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+  color: #444;
+}
+
+/* TOMBOL CLUE YES/NO */
+.clue-btn {
+  padding: 6px 14px;
+  margin: 5px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.yes-btn {
+  background: #f78fb3;
+  color: #1b0a1d;
+}
+.no-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* --- FIX PIN KEYPAD (KHUSUS STRUKTUR HTML KAMU) --- */
+#pin-screen {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 90% !important;
+  max-width: 320px !important;
+  z-index: 100 !important;
+}
+
+.pin-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.pin-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; /* Bikin 3 kolom sejajar */
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 220px !important;
+  margin: 15px auto 0 auto !important;
+  justify-items: center !important;
+}
+
+.pin-btn {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(247, 143, 179, 0.4) !important;
+  background: transparent !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Styling Player Musik */
+.music-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(247, 143, 179, 0.3);
+  padding: 12px 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 360px;
+  margin: 25px auto 10px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.music-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.music-icon {
+  font-size: 1.1rem;
+  animation: spin 4s linear infinite;
+}
+
+#music-btn {
+  background: #f78fb3;
+  border: none;
+  color: #1b0a1d;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+#music-btn:hover {
+  transform: scale(1.05);
+  background: #ffb7c5;
+}
+
+.footer-text {
+  margin: 20px 0 30px 0;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: center;
+}
+
+/* SPOTIFY MINI PLAYER STYLING */
+.spotify-card {
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  width: 90%;
+  max-width: 360px;
+  margin: 30px auto 10px auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.spotify-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: #1db954; /* Warna hijau khas Spotify */
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.spotify-body {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.album-cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.song-info {
+  text-align: left;
+  overflow: hidden;
+}
+
+.song-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-artist {
+  font-size: 0.8rem;
+  color: #b3b3b3;
+  margin-top: 2px;
+}
+
+.spotify-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.spot-btn {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.spot-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.play-btn {
+  background: #1db954 !important;
+  color: #000 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.play-btn:hover {
+  transform: scale(1.08);
+  background: #1ed760 !important;
+}
+
+/* Styling List Lagu di Bawah Player */
+.playlist-list {
+  margin-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.playlist-item.active {
+  color: #1db954;
+  font-weight: bold;
+}
+
+.playlist-item .item-title {
+  color: #fff;
+}
+
+.playlist-item.active .item-title {
+  color: #1db954;
+}
+
+/* COUNTDOWN TIMER STYLING */
+.countdown-container {
+  margin-top: 25px;
+  text-align: center;
+  width: 100%;
+}
+
+.countdown-title {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: #f78fb3;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.countdown-box {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.time-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(247, 143, 179, 0.2);
+  padding: 8px 10px;
+  border-radius: 10px;
+  min-width: 50px;
+}
+
+.time-card span {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+}
+
+.time-card p {
+  font-size: 0.6rem;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* LAYAR PEMBUKA */
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1b0a1d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition:
+    opacity 1.5s ease,
+    visibility 1.5s;
+}
+
+#welcome-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.welcome-text {
+  color: #f78fb3;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* WADAH LEDAKAN BUNGA */
+#emoji-burst-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* ANIMASI BUNGA MELEDAK */
+.burst-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  user-select: none;
+  pointer-events: none;
+  animation: explodeEmoji 3s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes explodeEmoji {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.8)
+      rotate(var(--rot));
+  }
+}
+
+/* CONTAINER HUJAN BUNGA BACKGROUND */
+/* CONTAINER HUJAN BUNGA FULL BACKGROUND */
+#petals-bg-container {
+  position: fixed; /* Bikin full se-layar monitor/HP */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1; /* Pindahin ke paling belakang biar gak numpuk di atas teks */
+}
+
+/* KELOPAK BUNGA GUGUR */
+.falling-petal {
+  position: absolute;
+  top: -10%;
+  user-select: none;
+  pointer-events: none;
+  /* Efek pendaran cahaya tipis di tiap bunga yang jatuh */
+  filter: drop-shadow(0 0 5px rgba(247, 143, 179, 0.6));
+  animation: fallAnimation linear infinite;
+}
+
+@keyframes fallAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.8);
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(105vh) rotate(360deg) scale(1.2);
+  }
+}
+
+/* PASTIIN ELEMEN KONTEN NAIK KE DEPAN */
+#content-screen {
+  position: relative;
+  z-index: 1;
+}
+
+.special-day-text,
+.main-title,
+.date-text,
+.cake-wrapper,
+.sub-message,
+.letter-section,
+.letter-card {
+  position: relative;
+  z-index: 2; /* Selalu di atas bunga background */
+}
+
+/* CANVAS KEMBANG API INTERAKTIF */
+/* BIKIN CANVAS DIAM DI LANGIT ATAS (NGGAK NGIKUT SCROLL) */
+#fireworks-canvas {
+  position: absolute; /* PENTING: Pake absolute biar nempel di dokumen atas aja */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 650px; /*ATESI TINGGI CANVAS (Cuma sebatas header/judul & atas kue) */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* PERCIKAN API PAS LILIN DIKLIK */
+.spark-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffeaa7;
+  box-shadow:
+    0 0 10px #ff7675,
+    0 0 20px #fd79a8;
+  pointer-events: none;
+  z-index: 10000;
+  animation: sparkFly 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes sparkFly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.2);
+  }
+}
+
+/* CONTAINER POLAROID (RESPONSIVE GRID) */
+.polaroid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 25px 15px; /* Jarak lebih pas buat layar HP & Laptop */
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+/* KARTU POLAROID */
+.polaroid-card {
+  background: #ffffff;
+  padding: 12px 12px 18px 12px;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27);
+  cursor: pointer;
+  position: relative;
+}
+
+/* HIASAN SELOTIP TRANSPARAN DI ATAS POLAROID (SCRAPBOOK DETAIL) */
+.polaroid-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  border: 1px dashed rgba(200, 200, 200, 0.4);
+  z-index: 2;
+}
+
+/* VARIASI MIRING NATURAL */
+.polaroid-card.rotate-left {
+  transform: rotate(-3deg);
+}
+
+.polaroid-card.rotate-right {
+  transform: rotate(3deg);
+}
+
+/* HOVER / TAP EFFECT */
+.polaroid-card:hover {
+  transform: rotate(0deg) scale(1.06);
+  box-shadow: 0 15px 30px rgba(244, 143, 177, 0.4);
+  z-index: 12;
+}
+
+/* FRAME FOTO & VIDEO */
+.polaroid-img-box {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  background: #f0f0f0;
+  border-radius: 2px;
+  position: relative;
+}
+
+/* PERBAIKAN BUAT FOTO DAN VIDEO AGAR TIDAK GEPEK */
+.polaroid-img-box img,
+.polaroid-img-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border: none;
+}
+
+/* CAPTION TULISAN HANDWRITING */
+.polaroid-caption {
+  text-align: center;
+  margin-top: 10px;
+  font-family: "Caveat", "Dancing Script", cursive, sans-serif;
+  font-size: 1.15rem;
+  color: #2d3436;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* WADAH UTAMA GRID (KUNCI AGAR TIDAK BERDERET KE BAWAH) */
+.calendar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(
+    7,
+    1fr
+  ) !important; /* Paksa 7 Kolom Kesamping */
+  gap: 6px;
+  background: #0f172a;
+  padding: 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* NAMA HARI */
+.day-name {
+  background: #ff7675;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 6px 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* KOTAK ANGKA TANGGAL */
+.date-num {
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: bold;
+  height: 35px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* KOTAK KOSONG DI AWAL BULAN */
+.date-num.empty {
+  background: transparent;
+}
+
+/* LINGKARAN MERAH ULTAH JEPP */
+.date-num.marked::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #ff4757;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  box-sizing: border-box;
+}
+
+/* WADAH FLEX (BIAR BERDAMPINGAN) */
+.windah-side-wrapper {
+  display: inline-flex;
+  align-items: center; /* Biar sejajar secara vertikal */
+  justify-content: center;
+  gap: 12px; /* Jarak antara teks dan gambar */
+  margin: 20px 0;
+}
+/* WADAH PENATAAAN (Bungkus tulisan & foto biar sejajar) */
+.hepi-container {
+  display: flex !important;
+  align-items: center !important; /* Ratakan tengah secara vertikal */
+  justify-content: space-between; /* Kasih jarak otomatis antara teks & foto */
+  gap: 10px; /* Jarak aman biar ga saling menimpa */
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 15px;
+}
+
+/* TEKS HEPIIBESDEYY */
+.hepi-text {
+  font-size: 1.35rem !important; /* Ukuran pas biar ga offside kayak teks atas */
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.2;
+  word-break: break-word; /* Mencegah huruf nembus pinggir kartu */
+}
+
+/* FOTO BANG WINDAH DI SAMPING */
+.windah-img-side {
+  width: 85px !important; /* Ukuran pas di samping teks */
+  height: auto;
+  flex-shrink: 0; /* Mencegah gambar tertekan/gepeng */
+  transform: rotate(8deg); /* Miring dikit biar tetep bernuansa stiker */
+  filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.2));
+}
+
+/* ==========================================
+   EFEK BLINK-BLINK HALUS (ANTI-OVER)
+   ========================================== */
+
+/* 1. Judul Utama "Happy Birthday" (Soft Glow) */
+.main-title {
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 10px 0;
+  line-height: 1.2;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* 2. Nama "Jepp" dengan Efek Kedip Halus (Blink) */
+.name-text {
+  color: #ff7675;
+  text-shadow: 0 0 8px rgba(255, 118, 117, 0.6);
+  display: inline-block;
+  /* Panggil animasi blink yang cepat tapi smooth */
+  animation: softBlink 1.8s ease-in-out infinite alternate;
+}
+
+/* 3. Bintang / Emoji Kedip-Kedip Bergantian */
+.glowing-star {
+  display: inline-block;
+  filter: drop-shadow(0 0 4px rgba(255, 234, 167, 0.7));
+  animation: starBlink 1.2s ease-in-out infinite alternate;
+}
+
+/* Bintang kedua dikasih delay biar kedipnya ga barengan (efek kerlip acak) */
+.glowing-star:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+/* ==========================================
+   KEYFRAMES ANIMASI KEDIP (BLINK ONLY)
+   ========================================== */
+
+/* Animasi Kedip Nama Jepp (Redup -> Terang) */
+@keyframes softBlink {
+  0% {
+    opacity: 0.75;
+    text-shadow: 0 0 4px rgba(255, 118, 117, 0.3);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 12px rgba(253, 121, 168, 0.8),
+      0 0 20px rgba(255, 118, 117, 0.5);
+  }
+  100% {
+    opacity: 0.85;
+    text-shadow: 0 0 6px rgba(255, 118, 117, 0.4);
+  }
+}
+
+/* Animasi Kerlip Bintang (Simpel & Smooth) */
+@keyframes starBlink {
+  0% {
+    opacity: 0.3;
+    filter: drop-shadow(0 0 2px rgba(255, 234, 167, 0.3));
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(253, 203, 110, 0.9));
+  }
+}
+
+/* EFEK KEDIP WARNA PUTIH (KERLAP-KERLIP HALUS) */
+.blink-white {
+  color: #ffffff;
+  display: inline-block;
+  animation: whiteBlink 2s ease-in-out infinite alternate;
+}
+
+/* ANIMASI REDUP-TERANG TEKS PUTIH */
+@keyframes whiteBlink {
+  0% {
+    opacity: 0.5;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    opacity: 1;
+    /* Cahaya putih berpendar lembut saat terang */
+    text-shadow:
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 0 18px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    opacity: 0.65;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* CONTAINER OVERLAY FULLSCREEN (LAYOUT KE BAWAH) */
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex !important;
+  flex-direction: column !important; /* Wajib column biar susunannya ke bawah */
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 15px; /* Jarak antara tulisan dan gambar */
+  z-index: 9999;
+  text-align: center;
+}
+
+/* TEKS PREPARING */
+.welcome-text {
+  color: #fd79a8;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(253, 121, 168, 0.6);
+  animation: softBlink 1.8s ease-in-out infinite alternate;
+}
+
+/* GAMBAR BANG WINDAH DI BAWAH TEKS */
+.welcome-img {
+  width: 180px !important;
+  height: auto !important;
+  display: block !important;
+  transform: rotate(-3deg);
+  filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.6));
+  animation: softBlink 1.8s ease-in-out infinite alternate;
+}
+
+/* CONTAINER UTAMA SURAT */
+.letter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px 60px 15px;
+}
+
+.letter-header {
+  color: #fff;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+/* WADAH UTAMA CARD */
+.letter-card-wrapper {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* COVER DEPAN WAKTU KERTAS MASIH NUTUP */
+.letter-cover {
+  background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+  padding: 50px 20px;
+  text-align: center;
+  color: #fff;
+  transition: all 0.5s ease;
+}
+
+.envelope-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.letter-cover h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.tap-hint {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-weight: bold;
+}
+
+/* ISI SURAT (AWALNYA DISEMBUNYIKAN) */
+.letter-body {
+  display: none;
+  padding: 25px 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.letter-date {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.letter-body h2 {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 10px 0 15px 0;
+  color: #333;
+}
+
+.letter-body p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* KONDISI SETELAH DIKLIK (.open) */
+.letter-card-wrapper.open .letter-cover {
+  display: none; /* Sembunyikan cover pink */
+}
+
+.letter-card-wrapper.open .letter-body {
+  display: block; /* Munculkan teks surat */
+  opacity: 1;
+  animation: fadeInLetter 0.6s ease forwards;
+}
+
+@keyframes fadeInLetter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.polaroid-img-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Biar video memenuhi frame dengan rapi */
+  object-position: center; /* Fokus di tengah video */
+}
+
+/* EFEK SMOOTH DARI CONTAINER SECTION */
+.memory-section {
+  opacity: 0;
+  transform: translateY(50px);
+  filter: blur(10px);
+  /* Kurva cubic-bezier khusus biar pergerakannya super lembut */
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+.memory-section.active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* ANIMASI KARTU POLAROID INDIVIDUAL (MUNCUL BERURUTAN / STAGGER) */
+.polaroid-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+}
+
+/* KETIKA PARENT SECTION KETEMU PAS DI-SCROLL */
+.memory-section.active .polaroid-card {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* MEMPERTAHANKAN ROTASI MIRING MASING-MASING PAS MUNCUL */
+.memory-section.active .polaroid-card.rotate-left {
+  transform: translateY(0) rotate(-4deg) scale(1);
+}
+
+.memory-section.active .polaroid-card.rotate-right {
+  transform: translateY(0) rotate(4deg) scale(1);
+}
+
+/* DELAY MUNCUL BERURUTAN (EFEC STAGGER) */
+.memory-section.active .polaroid-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.memory-section.active .polaroid-card:nth-child(2) {
+  transition-delay: 0.25s;
+}
+.memory-section.active .polaroid-card:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.memory-section.active .polaroid-card:nth-child(4) {
+  transition-delay: 0.55s;
+}
+
+/* SPOTIFY WIDGET CONTAINER */
+.spotify-section {
+  max-width: 420px;
+  margin: 20px auto 10px auto;
+  padding: 0 15px;
+}
+
+/* STYLING SURAT (LETTER) */
+.letter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 15px 60px 15px;
+}
+
+.letter-card-wrapper {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.letter-cover {
+  background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+  padding: 40px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.envelope-icon {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.letter-body {
+  display: none;
+  padding: 25px 20px;
+}
+
+.letter-card-wrapper.open .letter-cover {
+  display: none;
+}
+
+.letter-card-wrapper.open .letter-body {
+  display: block;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TAMPILAN STATUS TERKUNCI */
+.lock-status-box {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed #ff80ab;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+#countdown-timer {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ff80ab;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+/* MATIKAN SEMUA CLICK EVENT DI GRID PIN PAS MASIH TERKUNCI */
+.disabled-grid {
+    opacity: 0.35;
+    pointer-events: none !important; /* KUNCI UTAMA: Bikin semua tombol gak bisa diclick sama sekali */
+    filter: grayscale(1);
+    user-select: none;
+}
