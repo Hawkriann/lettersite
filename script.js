@@ -580,7 +580,7 @@ function checkUnlockTime() {
     
     // Tentukan waktu target jam 00:00:00 (Tengah malam)
     const target = new Date();
-    target.setHours(24, 0, 0, 0); // Atur ke 00:00:00 terdekat
+    target.setHours(0, 0, 0, 0); // Atur ke 00:00:00 terdekat
 
     const diff = target - now;
 
