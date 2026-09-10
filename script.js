@@ -190,13 +190,13 @@ const playlist = [
     },
     {
         title: "bad",
-        artist: "Tulus",
+        artist: "wave to earth",
         src: "music/bad.mp3",
         cover: "assets/w2e.jpg"
     },
     {
         title: "seasons",
-        artist: "Wave to earth",
+        artist: "wave to earth",
         src: "music/season.mp3",
         cover: "assets/w2e1.jpg"
     }
