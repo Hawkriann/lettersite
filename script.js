@@ -49,7 +49,7 @@ function press(num) {
         currentPin += num;
         updateDisplay();
         
-        // Teks "coba lagi" baru hilang PAS doi mulai ngetik angka lagi
+        // Teks "coba lagi" baru hilang PAS mulai ngetik angka lagi
         pinError.textContent = ""; 
     }
 }
@@ -271,7 +271,7 @@ function prevSong() {
 
 // SCRIPT COUNTDOWN OTOMATIS
 function startBirthdayCountdown() {
-    // Set tanggal ultah Jepp (Bulan 9 = September, Tanggal 10)
+    // Set tanggal ultah (Bulan 9 = September, Tanggal 10)
     const birthMonth = 9; // September
     const birthDay = 10;
 
@@ -526,7 +526,7 @@ function setupAutomaticFireworks() {
         if (contentScreen && contentScreen.classList.contains('visible') && cake) {
             const cakeRect = cake.getBoundingClientRect();
             
-            // CEK: Apakah Jepp ngetap DI ATAS area kue?
+            // CEK: Apakah ngetap DI ATAS area kue?
             // Kita kasih margin 50px di atas kue buat area aman ngetap langit
             if (e.clientY < (cakeRect.top - 50)) {
                 spawnExplosion(e.clientX, e.clientY);
